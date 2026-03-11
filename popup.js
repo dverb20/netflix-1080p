@@ -91,7 +91,10 @@ document.getElementById('seek-max').addEventListener('input', (e) => {
   saveSettings();
 });
 
-document.getElementById('open-netflix').addEventListener('click', () => {
+document.getElementById('open-netflix').addEventListener('click', async () => {
+  // Set the auto-surf flag so the content script starts surfing immediately
+  // once the Netflix browse page finishes loading.
+  await chrome.storage.session.set({ cs_autoSurf: true });
   chrome.tabs.create({ url: 'https://www.netflix.com/browse' });
   window.close();
 });
