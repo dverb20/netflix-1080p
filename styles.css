@@ -1,0 +1,212 @@
+/* ─── Netflix Channel Surfer — Injected Styles ───────────────────────────── */
+
+/* ── Surf button in the Netflix nav bar ─────────────────────────────────── */
+
+#cs-surf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 4px;
+  color: #e5e5e5;
+  cursor: pointer;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 5px 13px;
+  margin-left: 16px;
+  transition: background 0.15s, border-color 0.15s, color 0.15s, transform 0.1s;
+  vertical-align: middle;
+  white-space: nowrap;
+  user-select: none;
+}
+
+#cs-surf-btn:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.65);
+  color: #fff;
+}
+
+#cs-surf-btn:active {
+  transform: scale(0.96);
+}
+
+#cs-surf-btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+#cs-surf-btn svg {
+  flex-shrink: 0;
+}
+
+/* ── Floating "Surf" button on the watch / player page ──────────────────── */
+
+#cs-watch-surf-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99990;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(20, 20, 20, 0.85);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 6px;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.55);
+  transition: background 0.2s, border-color 0.2s, transform 0.1s, opacity 0.2s;
+  opacity: 0.75;
+  user-select: none;
+}
+
+#cs-watch-surf-btn:hover {
+  background: rgba(35, 35, 35, 0.95);
+  border-color: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+}
+
+#cs-watch-surf-btn:active {
+  transform: scale(0.96);
+}
+
+/* Hide the watch surf button when Netflix's player controls are hidden */
+.watch-video--bottom-controls-container:not(:hover) ~ #cs-watch-surf-btn {
+  opacity: 0;
+}
+
+/* ── Channel-surfing overlay ────────────────────────────────────────────── */
+
+#cs-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.18s ease-in;
+  pointer-events: all;
+}
+
+#cs-overlay.cs-overlay-on {
+  opacity: 1;
+}
+
+/* Animated TV-static grain layer */
+.cs-static-grain {
+  position: absolute;
+  inset: 0;
+  /* Inline SVG noise filter via data URI */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.07;
+  animation: cs-grain-flicker 0.08s steps(1, end) infinite;
+}
+
+@keyframes cs-grain-flicker {
+  0%   { background-position:   0px   0px; opacity: 0.06; }
+  14%  { background-position: -40px -20px; opacity: 0.09; }
+  28%  { background-position:  20px  40px; opacity: 0.05; }
+  42%  { background-position: -20px  10px; opacity: 0.08; }
+  57%  { background-position:  10px -30px; opacity: 0.07; }
+  71%  { background-position: -50px  20px; opacity: 0.10; }
+  85%  { background-position:  30px -10px; opacity: 0.06; }
+  100% { background-position:   0px   0px; opacity: 0.07; }
+}
+
+/* Horizontal scan-line shimmer */
+.cs-static-grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+}
+
+.cs-overlay-label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  color: #fff;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.cs-tv-emoji {
+  font-size: 52px;
+  animation: cs-tv-blink 0.6s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
+}
+
+@keyframes cs-tv-blink {
+  from { transform: scale(1);    opacity: 0.85; }
+  to   { transform: scale(1.06); opacity: 1;    }
+}
+
+.cs-overlay-text {
+  animation: cs-text-flicker 0.3s steps(2, end) infinite;
+}
+
+@keyframes cs-text-flicker {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+/* ── Toast notification ──────────────────────────────────────────────────── */
+
+#cs-toast {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(14px);
+  z-index: 999998;
+  background: rgba(18, 18, 18, 0.93);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Netflix Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 11px 22px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  white-space: nowrap;
+  pointer-events: none;
+  max-width: 90vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#cs-toast.cs-toast-on {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

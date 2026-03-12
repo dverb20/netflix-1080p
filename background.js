@@ -1,12 +1,9 @@
-chrome.webRequest.onBeforeRequest.addListener(
-    function(details) {
-        return {
-            redirectUrl: chrome.extension.getURL("cadmium-playercore-6.0009.325.011-1080p.js")
-        };
-    }, {
-        urls: [
-            "*://assets.nflxext.com/*/ffe/player/html/*",
-            "*://www.assets.nflxext.com/*/ffe/player/html/*"
-        ]
-    }, ["blocking"]
-);
+// Netflix Channel Surfer - Background Service Worker (Manifest V3)
+// Kept minimal — content scripts and popup access chrome.storage directly.
+
+chrome.runtime.onInstalled.addListener(({ reason }) => {
+  if (reason === 'install') {
+    // Open Netflix on first install so the user can start surfing immediately
+    chrome.tabs.create({ url: 'https://www.netflix.com/browse' });
+  }
+});
