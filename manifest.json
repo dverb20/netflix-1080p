@@ -5,6 +5,11 @@
   "description": "Surf Netflix like cable TV — hit Surf to jump into a random episode or movie, already in progress.",
   "permissions": ["storage"],
   "host_permissions": ["https://www.netflix.com/*"],
+  "icons": {
+    "16": "icon.svg",
+    "48": "icon.svg",
+    "128": "icon.svg"
+  },
   "content_scripts": [
     {
       "matches": ["https://www.netflix.com/*"],
@@ -18,6 +23,7 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Netflix Channel Surfer"
+    "default_title": "Netflix Channel Surfer",
+    "default_icon": "icon.svg"
   }
 }
