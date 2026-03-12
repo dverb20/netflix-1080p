@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Background -->
+  <rect width="128" height="128" rx="24" fill="#141414"/>
+
+  <!-- Antenna left -->
+  <line x1="48" y1="38" x2="34" y2="18" stroke="#e50914" stroke-width="6" stroke-linecap="round"/>
+  <!-- Antenna right -->
+  <line x1="80" y1="38" x2="94" y2="18" stroke="#e50914" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- TV body -->
+  <rect x="16" y="40" width="96" height="66" rx="8" fill="#e50914"/>
+
+  <!-- Screen -->
+  <rect x="26" y="50" width="76" height="46" rx="4" fill="#141414"/>
+
+  <!-- Screen glow / content lines (simulate a show playing) -->
+  <rect x="34" y="62" width="60" height="4" rx="2" fill="#333"/>
+  <rect x="34" y="72" width="44" height="4" rx="2" fill="#333"/>
+  <rect x="34" y="82" width="52" height="4" rx="2" fill="#333"/>
+
+  <!-- Channel indicator dot -->
+  <circle cx="64" cy="114" r="5" fill="#e50914"/>
+</svg>
